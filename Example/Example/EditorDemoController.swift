@@ -603,6 +603,7 @@ extension EditorDemoController {
             toggleUnderline()
         case .strikethrough:
             toggleStrikethrough()
+//            togglePre()
         case .blockquote:
             toggleBlockquote()
         case .unorderedlist, .orderedlist:
@@ -642,6 +643,9 @@ extension EditorDemoController {
         richTextView.toggleUnderline(range: richTextView.selectedRange)
     }
 
+    @objc func togglePre() {
+        richTextView.togglePre(range: richTextView.selectedRange)
+    }
 
     @objc func toggleStrikethrough() {
         richTextView.toggleStrikethrough(range: richTextView.selectedRange)

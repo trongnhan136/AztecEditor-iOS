@@ -733,6 +733,7 @@ open class TextView: UITextView {
         
         ensureRemovalOfParagraphStylesBeforeRemovingCharacter(at: selectedRange)
 
+        // NHANNT OVERRIDE HERE
         super.deleteBackward()
 
         evaluateRemovalOfSingleLineParagraphAttributesAfterSelectionChange()

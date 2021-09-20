@@ -64,16 +64,19 @@ private extension LayoutManager {
             }
                         
             let blockquoteGlyphRange = glyphRange(forCharacterRange: range, actualCharacterRange: nil)
-
+            
+            
             enumerateLineFragments(forGlyphRange: blockquoteGlyphRange) { (rect, usedRect, textContainer, glyphRange, stop) in
                 
                 let startIndent = paragraphStyle.indentToFirst(Blockquote.self) - Metrics.listTextIndentation
+                
 
                 let lineRange = self.characterRange(forGlyphRange: glyphRange, actualGlyphRange: nil)
                 let lineCharacters = textStorage.attributedSubstring(from: lineRange).string
                 let lineEndsParagraph = lineCharacters.isEndOfParagraph(before: lineCharacters.endIndex)
                 let blockquoteRect = self.blockquoteRect(origin: origin, lineRect: rect, blockquoteIndent: startIndent, lineEndsParagraph: lineEndsParagraph)
-
+                
+                
                 self.drawBlockquoteBackground(in: blockquoteRect.integral, with: context)
                 
                 let nestDepth = paragraphStyle.blockquoteNestDepth
@@ -87,7 +90,7 @@ private extension LayoutManager {
             
             }
         }
-
+        
         // Draw: Extra Line Fragment
         guard extraLineFragmentRect.height != 0,
             let typingAttributes = extraLineFragmentTypingAttributes?() else {
@@ -294,12 +297,12 @@ private extension LayoutManager {
         }
         // If the marker width is larger than the indent available let's offset the area to draw to the left
         if markerWidth > indentWidth {
-            xOffset = indentWidth - markerWidth
+            xOffset = (indentWidth - markerWidth)
         }
 
         var markerRect = rect.offsetBy(dx: xOffset, dy: yOffset)
 
-        markerRect.size.width = max(indentWidth, markerWidth)
+        markerRect.size.width = max(indentWidth, markerWidth) - 12 // what is 12 public static var listTextIndentation = CGFloat(8) public static var listTextCharIndentation = CGFloat(4) //12?
 
         markerAttributedText.draw(in: markerRect)
     }

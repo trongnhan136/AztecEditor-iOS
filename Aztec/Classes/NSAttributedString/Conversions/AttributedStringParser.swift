@@ -76,11 +76,11 @@ class AttributedStringParser {
             let paragraphStyle = attributes.paragraphStyle()
             let styleNodes = createNodes(from: attrString, paragraphRange: paragraphRange, enclosingRange: enclosingRange)
             
+            
             if let mergedConversions = merge(paragraphStyle.properties, into: previousParagraphConversions, styleNodes: styleNodes) {
                 previousParagraphConversions = mergedConversions
             } else {
                 submitPreviousConversions()
-                
                 previousParagraphConversions = convert(ArraySlice(paragraphStyle.properties), styleNodes: styleNodes)
             }
         }
@@ -410,7 +410,8 @@ private extension AttributedStringParser {
         }
         
         let lastMergeableElementNode = lastMergeableConversion.elementNode
-        let somePropertiesAreNotMergeable = newProperties.count > mergeableConversions.count
+        let somePropertiesAreNotMergeable =  newProperties.count > mergeableConversions.count
+        
         
         guard somePropertiesAreNotMergeable else {
             // At this point we gotta check if we can merge the last style element from the left with the first style element from the right.
@@ -429,7 +430,7 @@ private extension AttributedStringParser {
                 // If all properties are merged and the last mergeable conversion is preformatted, we should prepend the
                 // styleNodes with a paragraph separator text node.
                 let finalStyleNodes = lastMergeableConversion.preformatted ? prependParagraphSeparatorTextNode(to: styleNodes) : styleNodes
-                
+
                 append(finalStyleNodes[0 ..< finalStyleNodes.endIndex], to: mergeableConversions)
             }
             

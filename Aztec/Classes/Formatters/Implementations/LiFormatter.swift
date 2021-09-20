@@ -42,7 +42,8 @@ open class LiFormatter: ParagraphAttributeFormatter {
 
         let newParagraphStyle = ParagraphStyle()
         newParagraphStyle.setParagraphStyle(paragraphStyle)
-        newParagraphStyle.removeProperty(ofType: HTMLLi.self)
+        // NOT NEED REMOVE
+//        newParagraphStyle.removeProperty(ofType: HTMLLi.self)
 
         var resultingAttributes = attributes
         resultingAttributes[.paragraphStyle] = newParagraphStyle
